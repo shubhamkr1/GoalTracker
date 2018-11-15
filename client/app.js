@@ -34,7 +34,7 @@ function ViewModel(){
 			contentType: "application/json",
 			success: function(data){
 				console.log('Goal added...');
-			}
+			},
 			error: function(xhr,status,err){
 				console.log(err);
 			}
