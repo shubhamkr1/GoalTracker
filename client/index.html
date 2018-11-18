@@ -1,12 +1,12 @@
 <html>
-	<head>
-		<title>GoalTracker</title>
-		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	</head>
-	<body onload="getGoals()">
-		 <nav class="navbar navbar-default">
+  <head>
+    <title>GoalTracker</title>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  </head>
+  <body onload="getGoals()">
+     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -26,47 +26,53 @@
     </nav>
 
     <div class="container">
-    	<div class="row">
-    		<div class="col-md-3">
-    			<input data-bind ="value: goalInputName" type="text" id="name" class="form-control" placeholder="Enter Goal">
-    		</div>
-    		<div class="col-md-3">
-    			<select data-bind ="value: goalInputType,options:types,optionsCaption:'Choose type'" id="type" class="form-control">
-    			</select>
-    		</div>
-    		<div class="col-md-3">
-    			<input data-bind ="value: goalInputDeadline" type="date" id="deadline" class="form-control">
-    		</div>
-    		<div class="col-md-3">
-    			<button data-bind ="click: addGoal" class="btn btn-primary">Add Goal</button> 
-    			<button class="btn btn-danger">Delete</button>
-    		</div>
-    	</div>
-    	<br><br>
       <div class="row">
-      	<div class="col-md-12">
-      		<table class="table table-striped">
-      			<thead>
-      				<tr>
-      					<th></th>
-      					<th>Name</th>
-      					<th>Type</th>
-      					<th>Deadline</th>
-      				</tr>
-      			</thead>
-      			<tbody data-bind="foreach: goals">
-      				<tr>
-      					<td><input type="checkbox"></td>
-      					<td data-bind="text: name"></td>
-      					<td data-bind="text: type"></td>
-      					<td data-bind="text: deadline"></td>
-      				</tr>
-      			</tbody>
-      		</table>
-      	</div>
+        <div class="col-md-3">
+          <input data-bind="value: goalInputName,valueUpdate:'keypress'" type="text" id="name" class="form-control" placeholder="Enter Goal">
+        </div>
+        <div class="col-md-3">
+          <select data-bind="value: goalInputType, options:types,optionsCaption: 'Choose Type'" id="type" class="form-control">
+          </select>
+        </div>
+        <div class="col-md-3">
+          <input data-bind="value: goalInputDeadline" type="date" id="deadline" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <button data-bind="click:addGoal,enable:goalInputName,visible:!isUpdate()" class="btn btn-primary">Add Goal</button> 
+
+ 
+          <button data-bind="click:updateGoal,enable:goalInputName,visible:isUpdate" class="btn btn-primary">Update Goal</button> 
+
+          <button data-bind="click:editSelected,enable: canEdit" class="btn btn-info">Edit</button>
+
+          <button data-bind="click:deleteSelected,enable: canEdit" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+      <br><br>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Deadline</th>
+              </tr>
+            </thead>
+            <tbody data-bind="foreach: goals">
+              <tr>
+                <td><input data-bind="value:$data, checked:$parent.selectedGoals" type="checkbox"></td>
+                <td data-bind="text: name"></td>
+                <td data-bind="text: type"></td>
+                <td data-bind="text: deadline"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </div><!-- /.container -->
-	<script src = "app.js"></script>
-	</body>
+  <script src="app.js"></script>
+  </body>
 </html>
